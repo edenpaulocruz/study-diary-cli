@@ -1,4 +1,4 @@
-require_relative 'stydy_item'
+require_relative 'study_item'
 
 ADD_ITEM = 1
 SHOW_ITEMS= 2
@@ -23,6 +23,15 @@ def add_item
   puts
   puts "===== Cadastro de Item ====="
   puts
+  puts "Digite o título do item: "
+  title = gets.chomp().upcase
+  puts
+  puts "Digite a categoria: "
+  category =  gets.chomp().upcase
+  puts
+  puts "#{category} CADASTRADO COM SUCESSO!"
+  puts
+  return StudyItem.new(title, category)
 end
 
 def show_items
@@ -37,12 +46,22 @@ def search_item
   puts
 end
 
+categories = [
+  Category.new('Curso'),
+  Category.new('Palestra'),
+  Category.new('Post'),
+  Category.new('Tutorial escrito'),
+  Category.new('Tutorial em vídeo'),
+  Category.new('Workshop')
+]
+study_items = []
 welcome()
+p study_items
 
 loop do
   option = menu()
   if option == ADD_ITEM
-    add_item()
+    study_items << add_item()
   elsif option == SHOW_ITEMS
     show_items()
   elsif option == SEARCH_ITEM
