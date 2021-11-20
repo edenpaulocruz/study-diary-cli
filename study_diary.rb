@@ -1,3 +1,4 @@
+require 'io/console'
 require_relative 'study_item'
 
 ADD_ITEM = 1
@@ -18,6 +19,12 @@ def menu
   puts
   print "Escolha uma opção: "
   gets.to_i
+end
+
+def continue
+  puts "Pressione qualquer tecla para continuar"
+  STDIN.getch
+  puts
 end
 
 def add_item
@@ -42,12 +49,14 @@ def show_items(items)
   items.each { |item| item.show() }
   puts "Itens não cadastrados." if items.empty?
   puts
+  continue()
 end
 
 def search_item
   puts
   puts "===== Buscando um Item ====="
   puts
+  continue()
 end
 
 categories = [
