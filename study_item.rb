@@ -7,4 +7,8 @@ class StudyItem
     @title = title
     @category = category
   end
+  
+  def show
+    puts "#{@category} - #{@title}"
+  end
 end

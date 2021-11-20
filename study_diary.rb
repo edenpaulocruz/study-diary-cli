@@ -7,6 +7,7 @@ EXIT = 4
 
 def welcome
   puts "Bem-vindo ao Diário de Estudos!"
+  puts
 end
 
 def menu
@@ -34,9 +35,12 @@ def add_item
   return StudyItem.new(title, category)
 end
 
-def show_items
+def show_items(items)
   puts
   puts "===== Itens Cadastrados ====="
+  puts
+  items.each { |item| item.show() }
+  puts "Itens não cadastrados." if items.empty?
   puts
 end
 
@@ -47,23 +51,22 @@ def search_item
 end
 
 categories = [
-  Category.new('Curso'),
-  Category.new('Palestra'),
-  Category.new('Post'),
-  Category.new('Tutorial escrito'),
-  Category.new('Tutorial em vídeo'),
-  Category.new('Workshop')
+  Category.new('CURSO'),
+  Category.new('PALESTRA'),
+  Category.new('POST'),
+  Category.new('TUTORIAL ESCRITO'),
+  Category.new('TUTORIAL EM VÍDEO'),
+  Category.new('WORKSHOP')
 ]
 study_items = []
 welcome()
-p study_items
 
 loop do
   option = menu()
   if option == ADD_ITEM
     study_items << add_item()
   elsif option == SHOW_ITEMS
-    show_items()
+    show_items(study_items)
   elsif option == SEARCH_ITEM
     search_item()
   elsif option == EXIT
