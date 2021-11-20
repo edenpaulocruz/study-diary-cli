@@ -1,3 +1,5 @@
+require_relative 'stydy_item'
+
 ADD_ITEM = 1
 SHOW_ITEMS= 2
 SEARCH_ITEM = 3
