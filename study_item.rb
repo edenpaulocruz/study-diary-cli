@@ -11,4 +11,8 @@ class StudyItem
   def show
     puts "#{@category} - #{@title}"
   end
+
+  def search(text)
+    return @title.upcase.include?(text)
+  end
 end

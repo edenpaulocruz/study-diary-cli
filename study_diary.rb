@@ -32,10 +32,10 @@ def add_item
   puts "===== Cadastro de Item ====="
   puts
   puts "Digite o título do item: "
-  title = gets.chomp().upcase
+  title = gets.chomp()
   puts
   puts "Digite a categoria: "
-  category =  gets.chomp().upcase
+  category =  gets.chomp()
   puts
   puts "#{category} CADASTRADO COM SUCESSO!"
   puts
@@ -52,11 +52,16 @@ def show_items(items)
   continue()
 end
 
-def search_item
+def search_item(items)
   puts
   puts "===== Buscando um Item ====="
   puts
-  continue()
+  puts "Digite o que deseja buscar: "
+  text_to_search = gets.chomp().upcase
+  search_result = []
+  items.each { |item| search_result << item if item.search(text_to_search) }
+  show_items(search_result)
+  puts
 end
 
 categories = [
@@ -77,7 +82,7 @@ loop do
   elsif option == SHOW_ITEMS
     show_items(study_items)
   elsif option == SEARCH_ITEM
-    search_item()
+    search_item(study_items)
   elsif option == EXIT
     break
   else
@@ -88,4 +93,4 @@ loop do
 end
 
 puts
-puts "Obrigado por utilizar o CookBook. Até logo!"
+puts "Obrigado por utilizar o Diário de Estudos. Até logo!"
