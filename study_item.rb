@@ -6,13 +6,6 @@ class StudyItem
   def initialize(title, category)
     @title = title
     @category = category
-  end
-  
-  def show
-    puts "#{@category} - #{@title}"
-  end
-
-  def search(text)
-    return @title.upcase.include?(text)
+    puts "Item '#{title}' da categoria '#{category.name}' cadastrado com sucesso!"
   end
 end
