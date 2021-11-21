@@ -60,6 +60,8 @@ def search_item(items)
   print "Digite uma palavra para procurar: "
   word = gets.chomp().upcase
   search_result = items.select { |item| item.title.upcase.include?(word) }
+  puts
+  puts "Foram encontrados #{search_result.length} itens."
   show_items(search_result)
 end
 
