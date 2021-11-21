@@ -44,10 +44,8 @@ def add_item
   categories.each { |category| puts "##{category.id} - #{category.name}" }
   print "Escolha uma categoria para o seu item de estudo: "
   choice = gets.chomp()
-  category = ''
-  categories.each { |item| category = item if item.id == choice.to_i }
+  category = categories.find { |item| item.id == choice.to_i }
   puts
-  
   StudyItem.new(title, category)
 end
 
