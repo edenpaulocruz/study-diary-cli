@@ -38,7 +38,9 @@ def add_item
   puts
   category = select_category()
   puts
-  StudyItem.new(title, category)
+  puts "Digite a descrição do seu item de estudo:"
+  description = gets.chomp()
+  StudyItem.new(title, category, description)
 end
 
 def select_category
@@ -52,7 +54,7 @@ end
 def show_items(items)
   puts
   puts "Itens não encontrados." if items.empty?
-  items.each_with_index { |item, index| puts "##{index+1} - #{item.title} - #{item.category.name}" }
+  items.each_with_index { |item, index| puts "##{index+1} - #{item.title} - #{item.category.name}\n#{item.description}\n\n" }
 end
 
 def search_items(items)
@@ -64,7 +66,7 @@ end
 
 def search_result(items, search)
   if search.class == String
-    search_result = items.select { |item| item.title.upcase.include?(search) }
+    search_result = items.select { |item| item.title.upcase.include?(search) || item.description.upcase.include?(search) }
   elsif search.class == Category
     search_result = items.select { |item| item.category == search }
   end
