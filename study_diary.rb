@@ -52,7 +52,7 @@ end
 def show_items(items)
   puts
   puts "Itens não encontrados." if items.empty?
-  items.each { |item| puts "#{item.title} - #{item.category.name}" }
+  items.each_with_index { |item, index| puts "##{index+1} - #{item.title} - #{item.category.name}" }
 end
 
 def search_items(items)
@@ -78,8 +78,11 @@ def show_by_category(items)
   search_result(items, category)
 end
 
-def delete_item
-  puts 'Deletar item!'
+def delete_item(items)
+  show_items(items)
+  print "Selecione o item que deseja apagar: "
+  choice = gets.chomp()
+  items.delete_at(choice.to_i - 1)
 end
 
 @categories = [
@@ -109,7 +112,7 @@ loop do
     show_by_category(study_items)
     continue()
   elsif option == DELETE_ITEM
-    delete_item()
+    delete_item(study_items)
     continue()
   elsif option == EXIT
     break
