@@ -5,7 +5,8 @@ ADD_ITEM = 1
 SHOW_ITEMS= 2
 SEARCH_ITEM = 3
 SHOW_BY_CATEGORY = 4
-EXIT = 5
+DELETE_ITEM = 5
+EXIT = 6
 
 def welcome
   puts "Bem-vindo ao Diário de Estudos, seu companheiro para estudar!"
@@ -17,6 +18,7 @@ def menu
   puts "[#{SHOW_ITEMS}] Ver todos os itens cadastrados"
   puts "[#{SEARCH_ITEM}] Buscar um item de estudo"
   puts "[#{SHOW_BY_CATEGORY}] Listar por categoria"
+  puts "[#{DELETE_ITEM}] Apagar um item" 
   puts "[#{EXIT}] Sair"
   puts
   print "Escolha uma opção: "
@@ -76,6 +78,10 @@ def show_by_category(items)
   search_result(items, category)
 end
 
+def delete_item
+  puts 'Deletar item!'
+end
+
 @categories = [
   Category.new(1, 'HTML'),
   Category.new(2, 'CSS'),
@@ -101,6 +107,9 @@ loop do
     continue()
   elsif option == SHOW_BY_CATEGORY
     show_by_category(study_items)
+    continue()
+  elsif option == DELETE_ITEM
+    delete_item()
     continue()
   elsif option == EXIT
     break
