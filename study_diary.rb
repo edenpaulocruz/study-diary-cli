@@ -56,7 +56,8 @@ end
 def show_items(items)
   puts
   puts "Itens não encontrados." if items.empty?
-  items.each_with_index { |item, index| puts "##{index+1} - #{item.title} - #{item.category.name} - #{'Finalizado' if item.done == true}\n#{item.description}\n\n" }
+  items = items.select { |item| item.done == false }
+  items.each_with_index { |item, index| puts "##{index+1} - #{item.title} - #{item.category.name}\n#{item.description}\n\n" }
 end
 
 def search_items(items)
