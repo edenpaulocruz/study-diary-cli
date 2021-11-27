@@ -6,7 +6,8 @@ SHOW_ITEMS= 2
 SEARCH_ITEM = 3
 SHOW_BY_CATEGORY = 4
 DELETE_ITEM = 5
-EXIT = 6
+FINISH_ITEM = 6
+EXIT = 7
 
 def welcome
   puts "Bem-vindo ao Diário de Estudos, seu companheiro para estudar!"
@@ -18,7 +19,8 @@ def menu
   puts "[#{SHOW_ITEMS}] Ver todos os itens cadastrados"
   puts "[#{SEARCH_ITEM}] Buscar um item de estudo"
   puts "[#{SHOW_BY_CATEGORY}] Listar por categoria"
-  puts "[#{DELETE_ITEM}] Apagar um item" 
+  puts "[#{DELETE_ITEM}] Apagar um item"
+  puts "[#{FINISH_ITEM}] Marcar um item como concluído"
   puts "[#{EXIT}] Sair"
   puts
   print "Escolha uma opção: "
@@ -54,7 +56,7 @@ end
 def show_items(items)
   puts
   puts "Itens não encontrados." if items.empty?
-  items.each_with_index { |item, index| puts "##{index+1} - #{item.title} - #{item.category.name}\n#{item.description}\n\n" }
+  items.each_with_index { |item, index| puts "##{index+1} - #{item.title} - #{item.category.name} - #{'Finalizado' if item.done == true}\n#{item.description}\n\n" }
 end
 
 def search_items(items)
@@ -87,6 +89,13 @@ def delete_item(items)
   items.delete_at(choice.to_i - 1)
 end
 
+def finish_item(items)
+  show_items(items)
+  print "Selecione o item para concluir: "
+  choice = gets.chomp()
+  items[choice.to_i - 1].done = true
+end
+
 @categories = [
   Category.new(1, 'HTML'),
   Category.new(2, 'CSS'),
@@ -115,6 +124,9 @@ loop do
     continue()
   elsif option == DELETE_ITEM
     delete_item(study_items)
+    continue()
+  elsif option == FINISH_ITEM
+    finish_item(study_items)
     continue()
   elsif option == EXIT
     break
