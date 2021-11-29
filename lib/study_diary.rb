@@ -11,8 +11,8 @@ SHOW_FINISHEDS   = 7
 SHOW_ALL         = 8
 EXIT             = 9
 
-def welcome
-  puts 'Bem-vindo ao Diário de Estudos, seu companheiro para estudar!'
+def clear_screen
+  system 'clear'
 end
 
 def menu
@@ -39,17 +39,18 @@ def continue
   puts
   puts 'Pressione qualquer tecla para continuar'
   STDIN.getch
+  clear_screen
 end
 
 def add_item
   puts
   print 'Digite o título do seu item de estudo: '
-  title = gets.chomp()
+  title = gets.chomp
   puts
-  category = select_category()
+  category = select_category
   puts
   puts 'Digite a descrição do seu item de estudo:'
-  description = gets.chomp()
+  description = gets.chomp
   StudyItem.new(title, category, description)
 end
 
@@ -57,7 +58,7 @@ def select_category
   puts
   @categories.each { |category| puts "##{category.id} - #{category.name}" }
   print 'Escolha uma categoria: '
-  choice = gets.chomp()
+  choice = gets.chomp
   category = @categories.find { |item| item.id == choice.to_i }
 end
 
@@ -71,7 +72,7 @@ end
 def search_items(items)
   puts
   print 'Digite uma palavra para procurar: '
-  word = gets.chomp().upcase
+  word = gets.chomp.upcase
   search_result(items, word)
 end
 
@@ -87,21 +88,21 @@ def search_result(items, search)
 end
 
 def show_by_category(items)
-  category = select_category()
+  category = select_category
   search_result(items, category)
 end
 
 def delete_item(items)
   show_items(items)
   print 'Selecione o item que deseja apagar: '
-  choice = gets.chomp()
+  choice = gets.chomp
   items.delete_at(choice.to_i - 1)
 end
 
 def finish_item(items)
   show_items(items, false)
   print 'Selecione o item para concluir: '
-  choice = gets.chomp()
+  choice = gets.chomp
   items[choice.to_i - 1].done = true
 end
 
@@ -115,41 +116,35 @@ end
   Category.new(7, 'Golang')
 ]
 study_items = []
-welcome()
+puts 'Bem-vindo ao Diário de Estudos, seu companheiro para estudar!'
+clear_screen
+option = menu
 
 loop do
-  option = menu()
-  if option == ADD_ITEM
-    study_items << add_item()
-    continue()
-  elsif option == SHOW_ITEMS
+  case option
+  when ADD_ITEM
+    study_items << add_item
+  when SHOW_ITEMS
     show_items(study_items, false)
-    continue()
-  elsif option == SEARCH_ITEM
+  when SEARCH_ITEM
     search_items(study_items)
-    continue()
-  elsif option == SHOW_BY_CATEGORY
+  when SHOW_BY_CATEGORY
     show_by_category(study_items)
-    continue()
-  elsif option == DELETE_ITEM
+  when DELETE_ITEM
     delete_item(study_items)
-    continue()
-  elsif option == FINISH_ITEM
+  when FINISH_ITEM
     finish_item(study_items)
-    continue()
-  elsif option == SHOW_FINISHEDS
+  when SHOW_FINISHEDS
     show_items(study_items, true)
-    continue()
-  elsif option == SHOW_ALL
+  when SHOW_ALL
     show_items(study_items)
-    continue()
-  elsif option == EXIT
+  when EXIT
     break
   else
-    puts
     puts 'Opção inálida! Tente novamente!'
-    puts
   end
+  continue
+  option = menu
 end
 
 puts
