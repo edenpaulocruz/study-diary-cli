@@ -1,50 +1,54 @@
 require 'io/console'
 require_relative 'study_item'
 
-ADD_ITEM = 1
-SHOW_ITEMS= 2
-SEARCH_ITEM = 3
+ADD_ITEM         = 1
+SHOW_ITEMS       = 2
+SEARCH_ITEM      = 3
 SHOW_BY_CATEGORY = 4
-DELETE_ITEM = 5
-FINISH_ITEM = 6
-SHOW_FINISHEDS = 7
-SHOW_ALL = 8
-EXIT = 9
+DELETE_ITEM      = 5
+FINISH_ITEM      = 6
+SHOW_FINISHEDS   = 7
+SHOW_ALL         = 8
+EXIT             = 9
 
 def welcome
-  puts "Bem-vindo ao Diário de Estudos, seu companheiro para estudar!"
+  puts 'Bem-vindo ao Diário de Estudos, seu companheiro para estudar!'
 end
 
 def menu
-  puts
-  puts "[#{ADD_ITEM}] Cadastrar um item para estudar"
-  puts "[#{SHOW_ITEMS}] Ver os itens a estudar"
-  puts "[#{SEARCH_ITEM}] Buscar um item de estudo"
-  puts "[#{SHOW_BY_CATEGORY}] Listar por categoria"
-  puts "[#{DELETE_ITEM}] Apagar um item"
-  puts "[#{FINISH_ITEM}] Marcar um item como concluído"
-  puts "[#{SHOW_FINISHEDS}] Mostrar itens concluídos"
-  puts "[#{SHOW_ALL}] Ver todos os itens cadastrados"
-  puts "[#{EXIT}] Sair"
-  puts
-  print "Escolha uma opção: "
+  puts <<~MENU
+    
+    -----------------------------------------------------
+    [#{ADD_ITEM}] Cadastrar um item para estudar
+    [#{SHOW_ITEMS}] Ver os itens a estudar
+    [#{SEARCH_ITEM}] Buscar um item de estudo
+    [#{SHOW_BY_CATEGORY}] Listar por categoria
+    [#{DELETE_ITEM}] Apagar um item
+    [#{FINISH_ITEM}] Marcar um item como concluído
+    [#{SHOW_FINISHEDS}] Mostrar itens concluídos
+    [#{SHOW_ALL}] Ver todos os itens cadastrados
+    [#{EXIT}] Sair
+    -----------------------------------------------------
+
+  MENU
+  print 'Escolha uma opção: '
   gets.to_i
 end
 
 def continue
   puts
-  puts "Pressione qualquer tecla para continuar"
+  puts 'Pressione qualquer tecla para continuar'
   STDIN.getch
 end
 
 def add_item
   puts
-  print "Digite o título do seu item de estudo: "
+  print 'Digite o título do seu item de estudo: '
   title = gets.chomp()
   puts
   category = select_category()
   puts
-  puts "Digite a descrição do seu item de estudo:"
+  puts 'Digite a descrição do seu item de estudo:'
   description = gets.chomp()
   StudyItem.new(title, category, description)
 end
@@ -52,7 +56,7 @@ end
 def select_category
   puts
   @categories.each { |category| puts "##{category.id} - #{category.name}" }
-  print "Escolha uma categoria: "
+  print 'Escolha uma categoria: '
   choice = gets.chomp()
   category = @categories.find { |item| item.id == choice.to_i }
 end
@@ -60,13 +64,13 @@ end
 def show_items(items, status = nil)
   puts
   items = items.select { |item| item.done == status } if status != nil
-  puts "Itens não encontrados." if items.empty?
+  puts 'Itens não encontrados.' if items.empty?
   items.each_with_index { |item, index| puts "##{index+1} - #{item.title} - #{item.category.name}#{' - Finalizado' if item.done}\n#{item.description}\n\n" }
 end
 
 def search_items(items)
   puts
-  print "Digite uma palavra para procurar: "
+  print 'Digite uma palavra para procurar: '
   word = gets.chomp().upcase
   search_result(items, word)
 end
@@ -89,14 +93,14 @@ end
 
 def delete_item(items)
   show_items(items)
-  print "Selecione o item que deseja apagar: "
+  print 'Selecione o item que deseja apagar: '
   choice = gets.chomp()
   items.delete_at(choice.to_i - 1)
 end
 
 def finish_item(items)
   show_items(items, false)
-  print "Selecione o item para concluir: "
+  print 'Selecione o item para concluir: '
   choice = gets.chomp()
   items[choice.to_i - 1].done = true
 end
@@ -143,10 +147,10 @@ loop do
     break
   else
     puts
-    puts "Opção inálida! Tente novamente!"
+    puts 'Opção inálida! Tente novamente!'
     puts
   end
 end
 
 puts
-puts "Obrigado por utilizar o Diário de Estudos. Até logo!"
+puts 'Obrigado por utilizar o Diário de Estudos. Até logo!'
