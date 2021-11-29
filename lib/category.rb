@@ -19,7 +19,11 @@ class Category
     new(name: 'Golang')
   ]
 
-  def show
-    "##{id} - #{title}"
+  def to_s
+    "##{id} - #{name}"
+  end
+
+  def self.all
+    CATEGORIES
   end
 end

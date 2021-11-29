@@ -17,8 +17,7 @@ end
 
 def menu
   puts <<~MENU
-    
-    -----------------------------------------------------
+    -------------------------------------------------------------
     [#{ADD_ITEM}] Cadastrar um item para estudar
     [#{SHOW_ITEMS}] Ver os itens a estudar
     [#{SEARCH_ITEM}] Buscar um item de estudo
@@ -28,8 +27,7 @@ def menu
     [#{SHOW_FINISHEDS}] Mostrar itens concluídos
     [#{SHOW_ALL}] Ver todos os itens cadastrados
     [#{EXIT}] Sair
-    -----------------------------------------------------
-
+    -------------------------------------------------------------
   MENU
   print 'Escolha uma opção: '
   gets.to_i
@@ -48,18 +46,6 @@ def select_category
   print 'Escolha uma categoria: '
   choice = gets.chomp
   @categories.find { |item| item.id == choice.to_i }
-end
-
-def add_item
-  puts
-  print 'Digite o título do seu item de estudo: '
-  title = gets.chomp
-  puts
-  category = select_category
-  puts
-  puts 'Digite a descrição do seu item de estudo:'
-  description = gets.chomp
-  StudyItem.new(title, category, description)
 end
 
 def show_items(items, status = nil)
@@ -106,24 +92,15 @@ def finish_item(items)
   items[choice.to_i - 1].done = true
 end
 
-@categories = [
-  Category.new(1, 'HTML'),
-  Category.new(2, 'CSS'),
-  Category.new(3, 'JavaScript'),
-  Category.new(4, 'React'),
-  Category.new(5, 'Ruby'),
-  Category.new(6, 'Rails'),
-  Category.new(7, 'Golang')
-]
 study_items = []
-puts 'Bem-vindo ao Diário de Estudos, seu companheiro para estudar!'
 clear_screen
+puts 'Bem-vindo ao Diário de Estudos, seu companheiro para estudar!'
 option = menu
 
 loop do
   case option
   when ADD_ITEM
-    study_items << add_item
+    study_items << StudyItem.create
   when SHOW_ITEMS
     show_items(study_items, false)
   when SEARCH_ITEM
