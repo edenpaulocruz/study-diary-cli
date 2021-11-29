@@ -1,13 +1,15 @@
 require_relative 'category'
 
 class StudyItem
-  attr_accessor :title, :category, :description, :done
+  attr_reader :id, :title, :category, :description, :done
 
-  def initialize(title, category, description)
+  @@next_index = 1
+
+  def initialize(title:, category:, description:, done: false)
+    @id = @@next_index
     @title = title
     @category = category
     @description = description
-    @done = false
-    puts "Item '#{title}' da categoria '#{category.name}' cadastrado com sucesso!"
+    @done = done
   end
 end
