@@ -42,6 +42,14 @@ def continue
   clear_screen
 end
 
+def select_category
+  puts
+  @categories.each { |category| puts "##{category.id} - #{category.name}" }
+  print 'Escolha uma categoria: '
+  choice = gets.chomp
+  @categories.find { |item| item.id == choice.to_i }
+end
+
 def add_item
   puts
   print 'Digite o título do seu item de estudo: '
@@ -52,14 +60,6 @@ def add_item
   puts 'Digite a descrição do seu item de estudo:'
   description = gets.chomp
   StudyItem.new(title, category, description)
-end
-
-def select_category
-  puts
-  @categories.each { |category| puts "##{category.id} - #{category.name}" }
-  print 'Escolha uma categoria: '
-  choice = gets.chomp
-  category = @categories.find { |item| item.id == choice.to_i }
 end
 
 def show_items(items, status = nil)
