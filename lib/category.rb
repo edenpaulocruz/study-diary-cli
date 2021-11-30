@@ -27,6 +27,12 @@ class Category
     CATEGORIES
   end
 
+  def self.show
+    puts "\n-------------------------------------------------------------"
+    puts self.all
+    puts "-------------------------------------------------------------\n"
+  end
+
   def show_name
     "#{name}"
   end

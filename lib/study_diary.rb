@@ -60,9 +60,9 @@ def search_result items, search
   show_items search_result
 end
 
-def show_by_category(items)
-  category = select_category
-  search_result(items, category)
+def show_by_category items
+  category = StudyItem.select_category
+  search_result items, category
 end
 
 def delete_item(items)
@@ -91,9 +91,9 @@ loop do
   when SHOW_ITEMS
     show_items study_items
   when SEARCH_ITEM
-    search_items(study_items)
+    search_items study_items
   when SHOW_BY_CATEGORY
-    show_by_category(study_items)
+    show_by_category study_items
   when DELETE_ITEM
     delete_item(study_items)
   when FINISH_ITEM

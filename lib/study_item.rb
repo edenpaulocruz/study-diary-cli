@@ -14,17 +14,17 @@ class StudyItem
     @@next_index += 1
   end
 
-  def self.create
-    categories = Category.all
-    puts
-    print 'Digite o título do seu item de estudo: '
-    title = gets.chomp
-    puts "\n-------------------------------------------------------------"
-    puts categories
-    puts "-------------------------------------------------------------\n"
+  def self.select_category
+    Category.show
     print 'Escolha uma categoria: '
     choice = gets.to_i
-    category = categories.find { |item| item.id == choice.to_i }
+    Category.all.find { |item| item.id == choice.to_i }
+  end
+
+  def self.create
+    print "\nDigite o título do seu item de estudo: "
+    title = gets.chomp
+    category = self.select_category
     print "\nDigite a descrição do seu item de estudo: "
     description = gets.chomp
     puts "\nItem '#{title}' da categoria '#{category.name}' cadastrado com sucesso!"
