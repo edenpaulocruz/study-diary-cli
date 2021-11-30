@@ -34,4 +34,8 @@ class StudyItem
   def to_s
     "\n##{id} - #{title} - #{category.show_name}#{' - Finalizado' if done}\n#{description}"
   end
+
+  def self.done
+    @done = true
+  end
 end

@@ -72,11 +72,11 @@ def delete_item items
   items.delete_at choice.to_i - 1
 end
 
-def finish_item(items)
-  show_items(items, false)
+def finish_item items
+  show_items items
   print 'Selecione o item para concluir: '
-  choice = gets.chomp
-  items[choice.to_i - 1].done = true
+  choice = gets.to_i
+  items[choice - 1].done
 end
 
 study_items = []
@@ -97,7 +97,7 @@ loop do
   when DELETE_ITEM
     delete_item study_items
   when FINISH_ITEM
-    finish_item(study_items)
+    finish_item study_items
   when SHOW_FINISHEDS
     show_items(study_items, true)
   when SHOW_ALL
