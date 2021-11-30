@@ -40,19 +40,10 @@ def continue
   clear_screen
 end
 
-def select_category
+def show_items items
   puts
-  @categories.each { |category| puts "##{category.id} - #{category.name}" }
-  print 'Escolha uma categoria: '
-  choice = gets.chomp
-  @categories.find { |item| item.id == choice.to_i }
-end
-
-def show_items(items, status = nil)
-  puts
-  items = items.select { |item| item.done == status } if status != nil
   puts 'Itens não encontrados.' if items.empty?
-  items.each_with_index { |item, index| puts "##{index+1} - #{item.title} - #{item.category.name}#{' - Finalizado' if item.done}\n#{item.description}\n\n" }
+  puts items
 end
 
 def search_items(items)
@@ -102,7 +93,7 @@ loop do
   when ADD_ITEM
     study_items << StudyItem.create
   when SHOW_ITEMS
-    show_items(study_items, false)
+    show_items study_items
   when SEARCH_ITEM
     search_items(study_items)
   when SHOW_BY_CATEGORY

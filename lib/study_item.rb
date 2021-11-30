@@ -26,7 +26,11 @@ class StudyItem
     category = categories.find { |item| item.id == choice.to_i }
     print "\nDigite a descrição do seu item de estudo: "
     description = gets.chomp
-    StudyItem.new(title: title, category: category, description: description)
     puts "\nItem '#{title}' da categoria '#{category.name}' cadastrado com sucesso!"
+    StudyItem.new(title: title, category: category, description: description)
+  end
+
+  def to_s
+    "##{id} - #{title} - #{category.show_name}#{' - Finalizado' if done}\n#{description}"
   end
 end

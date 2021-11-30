@@ -26,4 +26,8 @@ class Category
   def self.all
     CATEGORIES
   end
+
+  def show_name
+    "#{name}"
+  end
 end
