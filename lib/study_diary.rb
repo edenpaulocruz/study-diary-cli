@@ -56,7 +56,7 @@ def search_result items, search
   elsif search.class == Category
     search_result = items.select { |item| item.category == search }
   end
-  puts "\nForam encontrados #{search_result.length} itens."
+  puts "\nForam encontrados #{search_result.length} itens." if search_result.any?
   show_items search_result
 end
 
@@ -65,11 +65,11 @@ def show_by_category items
   search_result items, category
 end
 
-def delete_item(items)
-  show_items(items)
-  print 'Selecione o item que deseja apagar: '
+def delete_item items
+  show_items items
+  print "\nSelecione o item que deseja apagar: "
   choice = gets.chomp
-  items.delete_at(choice.to_i - 1)
+  items.delete_at choice.to_i - 1
 end
 
 def finish_item(items)
@@ -95,7 +95,7 @@ loop do
   when SHOW_BY_CATEGORY
     show_by_category study_items
   when DELETE_ITEM
-    delete_item(study_items)
+    delete_item study_items
   when FINISH_ITEM
     finish_item(study_items)
   when SHOW_FINISHEDS
