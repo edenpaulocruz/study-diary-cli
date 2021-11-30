@@ -34,34 +34,30 @@ def menu
 end
 
 def continue
-  puts
-  puts 'Pressione qualquer tecla para continuar'
+  puts "\nPressione qualquer tecla para continuar"
   STDIN.getch
   clear_screen
 end
 
 def show_items items
-  puts
-  puts 'Itens não encontrados.' if items.empty?
+  puts "\nItens não encontrados." if items.empty?
   puts items
 end
 
-def search_items(items)
-  puts
-  print 'Digite uma palavra para procurar: '
+def search_items items
+  print "\nDigite uma palavra para procurar: "
   word = gets.chomp.upcase
-  search_result(items, word)
+  search_result items, word
 end
 
-def search_result(items, search)
+def search_result items, search
   if search.class == String
     search_result = items.select { |item| item.title.upcase.include?(search) || item.description.upcase.include?(search) }
   elsif search.class == Category
     search_result = items.select { |item| item.category == search }
   end
-  puts
-  puts "Foram encontrados #{search_result.length} itens."
-  show_items(search_result, false)
+  puts "\nForam encontrados #{search_result.length} itens."
+  show_items search_result
 end
 
 def show_by_category(items)

@@ -11,6 +11,7 @@ class StudyItem
     @category = category
     @description = description
     @done = done
+    @@next_index += 1
   end
 
   def self.create
@@ -31,6 +32,6 @@ class StudyItem
   end
 
   def to_s
-    "##{id} - #{title} - #{category.show_name}#{' - Finalizado' if done}\n#{description}"
+    "\n##{id} - #{title} - #{category.show_name}#{' - Finalizado' if done}\n#{description}"
   end
 end
